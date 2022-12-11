@@ -26,19 +26,16 @@ export const userAuthSlice = createSlice({
         state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
-        state.contacts.isLoading = false;
       })
       .addCase(logInUser.fulfilled, (state, { payload }) => {
         state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
-        state.contacts.isLoading = false;
       })
       .addCase(logOut.fulfilled, state => {
         state.user = initialState.user;
         state.token = initialState.token;
         state.isLoggedIn = false;
-        state.contacts.isLoading = false;
       })
       .addCase(getCurrentUser.fulfilled, (state, { payload }) => {
         state.user = payload;

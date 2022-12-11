@@ -42,7 +42,7 @@ export const FormInputContact = () => {
   };
 
   return (
-    <Box px={3} width="320px">
+    <Box px={3} mx="auto">
       <button type="button" onClick={onClick}>
         {showForm ? 'Приховати вікно' : 'Додати контакт'}
       </button>

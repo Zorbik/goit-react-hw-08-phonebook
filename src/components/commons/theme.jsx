@@ -33,6 +33,9 @@ export const theme = {
     half: '50%',
     normal: '100%',
     px: '320px',
+    mobile: '479.98px',
+    tablet: '767.98px',
+    desktop: '1279.98px',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
 };

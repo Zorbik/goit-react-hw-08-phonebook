@@ -23,9 +23,9 @@ const Contacts = () => {
   const isFilterShown = stateContacts?.length;
 
   return (
-    <Box display="flex" flexWrap="wrap" my={5}>
+    <Box display="flex" flexWrap="wrap" my={5} mx="auto">
       <FormInputContact />
-      <Box>
+      <Box mx="auto">
         {isLoaderShown && <Loader />}
         {isFilterShown ? <Filter /> : ''}
         <ContactsList />

@@ -7,18 +7,19 @@ export const StyledLink = styled(NavLink)`
   align-items: center;
   border-radius: 10px;
   width: 150px;
-  margin: -10px 0px;
   text-decoration: none;
   color: ${p => p.theme.colors.black};
-  font-size: ${p => p.theme.fontSizes[4]}px;
+  font-size: ${p => p.theme.fontSizes[3]}px;
   height: 50px;
   transition: all 250ms linear;
+  @media screen and (min-width: ${p => p.theme.sizes.desktop}) {
+    font-size: ${p => p.theme.fontSizes[4]}px;
+  }
 
   :hover {
     color: ${p => p.theme.colors.white};
     background-image: linear-gradient(
       to right top,
-      #d16ba5,
       #c777b9,
       #ba83ca,
       #aa8fd8,
@@ -33,9 +34,6 @@ export const StyledLink = styled(NavLink)`
     );
   }
   &.active {
-    color: ${p => p.theme.colors.blue};
-    &:hover {
-      color: ${p => p.theme.colors.white};
-    }
+    color: ${p => p.theme.colors.white};
   }
 `;

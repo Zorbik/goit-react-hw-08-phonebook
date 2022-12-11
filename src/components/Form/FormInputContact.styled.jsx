@@ -4,13 +4,13 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: ${p => p.theme.space[3]}px;
-  width: ${p => p.theme.sizes.normal};
+  box-sizing: border-box;
 `;
 
 export const Input = styled.input`
   box-sizing: border-box;
-  width: ${p => p.theme.sizes.normal};
   height: ${p => p.theme.space[5]}px;
   padding: ${p => p.theme.space[1]}px;
   margin-top: ${p => p.theme.space[3]}px;
@@ -25,6 +25,10 @@ export const Input = styled.input`
 `;
 
 export const Label = styled.label`
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+
   margin-top: ${p => p.theme.space[3]}px;
   width: ${p => p.theme.sizes.normal};
   font-size: ${p => p.theme.fontSizes[5]};

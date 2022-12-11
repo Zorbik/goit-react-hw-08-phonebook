@@ -15,13 +15,6 @@ const initialState = {
   filter: '',
 };
 
-function isRejectedAction(action) {
-  return action.type.endsWith('rejected');
-}
-function isPendingAction(action) {
-  return action.type.endsWith('pending');
-}
-
 export const phoneBookSlice = createSlice({
   name: 'phoneBook',
   initialState,
@@ -47,11 +40,29 @@ export const phoneBookSlice = createSlice({
         );
         state.contacts.isLoading = false;
       })
-      .addMatcher(isPendingAction, (state, { payload }) => {
+      .addCase(fetchContacts.pending, (state, { payload }) => {
         state.contacts.isLoading = true;
         state.contacts.error = null;
       })
-      .addMatcher(isRejectedAction, (state, { payload }) => {
+      .addCase(addContact.pending, (state, { payload }) => {
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
+      })
+      .addCase(deleteContact.pending, (state, { payload }) => {
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
+      })
+      .addCase(deleteContact.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.contacts.isLoading = false;
+        state.contacts.error = payload;
+      })
+      .addCase(addContact.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.contacts.isLoading = false;
+        state.contacts.error = payload;
+      })
+      .addCase(fetchContacts.rejected, (state, { payload }) => {
         toast.error(`Операція завершилась помилкою ${payload}!`);
         state.contacts.isLoading = false;
         state.contacts.error = payload;

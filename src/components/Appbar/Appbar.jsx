@@ -17,8 +17,8 @@ export const Appbar = () => {
 
   return (
     <Box as="header" boxShadow="0px 10px 15px -10px rgba(0,0,0,0.75)">
-      <Box as="nav" display="flex" justifyContent="space-between" p={4}>
-        <Box display="flex">
+      <Box as="nav" display="flex" justifyContent="space-between" p={2}>
+        <Box display="flex" flexWrap="wrap" width="half">
           <StyledLink to="/">Hello-page</StyledLink>
           <StyledLink to="contacts">Contacts</StyledLink>
         </Box>
