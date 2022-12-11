@@ -10,6 +10,7 @@ export const UserMenu = ({ onClick }) => {
 
   const onClickLogOut = () => {
     dispatch(logOut());
+    onClick();
   };
   return (
     <StyledBox>

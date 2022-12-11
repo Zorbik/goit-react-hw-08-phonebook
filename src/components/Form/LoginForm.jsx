@@ -54,7 +54,7 @@ export const LoginForm = () => {
         </Label>
         <Label>
           <Input
-            type="text"
+            type="password"
             name="password"
             onChange={onInputChange}
             value={password}

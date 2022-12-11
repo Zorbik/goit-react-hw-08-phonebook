@@ -1,5 +1,4 @@
 import { Box } from '../../components';
-import { NavLink } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { getLoggedIn, getToken, getUser } from '../../redux/selectors';
@@ -36,7 +35,7 @@ export const Appbar = () => {
               Вітаю, {user.name}
             </StyledButton>
           ) : (
-            <NavLink to="login">Login</NavLink>
+            <StyledLink to="login">Login</StyledLink>
           )}
           {showMenu ? <UserMenu onClick={onClick} /> : ''}
         </StyledBox>

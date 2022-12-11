@@ -62,7 +62,7 @@ export const getCurrentUser = createAsyncThunk(
   'userAuth/refresh',
   async (_, { getState, rejectWithValue }) => {
     const persistedToken = getState().user.token;
-    if (!persistedToken) return rejectWithValue('Треба авторизуватись!');
+    if (!persistedToken) return rejectWithValue('треба авторизуватись!');
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');

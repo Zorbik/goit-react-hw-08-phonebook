@@ -55,7 +55,7 @@ export const userAuthSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(getCurrentUser.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(`Щоб далі користуватися додатком, ${payload}!`);
         state.isLoggedIn = false;
       });
   },
