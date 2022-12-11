@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from './components';
+import { Layout, PrivateRoute, PublicRoute } from './components';
 import { Contacts, Home, Login, Page404, Registration } from './pages';
 import { getCurrentUser } from './redux/userAuthOperations';
 
@@ -13,15 +13,38 @@ function App() {
   }, [dispatch]);
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="*" element={<Page404 />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={false}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute>
+                  <Contacts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="registration"
+              element={
+                <PublicRoute>
+                  <Registration />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<Page404 />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 }

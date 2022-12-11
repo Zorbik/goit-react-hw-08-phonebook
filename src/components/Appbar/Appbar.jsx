@@ -1,20 +1,23 @@
-import { Box, Button } from '../../components';
+import { Box } from '../../components';
 import { NavLink } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { getLoggedIn, getUser } from '../../redux/selectors';
-import { logOut } from '../../redux/userAuthOperations';
-import { StyledLink } from './Appbar.styled';
+import { useSelector } from 'react-redux';
+import { getLoggedIn, getToken, getUser } from '../../redux/selectors';
+import { StyledBox, StyledButton, StyledLink } from './Appbar.styled';
+import { useState } from 'react';
+import { UserMenu } from '../UserMenu/UserMenu';
 
 export const Appbar = () => {
+  const [showMenu, setShowmenu] = useState(false);
+
   const isLoggedIn = useSelector(getLoggedIn);
+  const token = useSelector(getToken);
+  const isRedirect = isLoggedIn || token;
   const user = useSelector(getUser);
-  const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(logOut());
+    setShowmenu(!showMenu);
   };
-
   return (
     <Box as="header" boxShadow="0px 10px 15px -10px rgba(0,0,0,0.75)">
       <Box as="nav" display="flex" justifyContent="space-between" p={2}>
@@ -22,25 +25,21 @@ export const Appbar = () => {
           <StyledLink to="/">Hello-page</StyledLink>
           <StyledLink to="contacts">Contacts</StyledLink>
         </Box>
-        <Box
+        <StyledBox
           display="flex"
           flexWrap="wrap"
           alignItems="center"
           justifyContent="center"
         >
-          {isLoggedIn ? (
-            <>
-              <Box as="span" mr={4}>
-                Вітаю, {user.name}
-              </Box>
-              <Button type="button" onClick={onClick}>
-                Logout
-              </Button>
-            </>
+          {isRedirect ? (
+            <StyledButton type="button" onClick={onClick}>
+              Вітаю, {user.name}
+            </StyledButton>
           ) : (
             <NavLink to="login">Login</NavLink>
           )}
-        </Box>
+          {showMenu ? <UserMenu onClick={onClick} /> : ''}
+        </StyledBox>
       </Box>
       <Toaster position="top-right" reverseOrder={false} />
     </Box>

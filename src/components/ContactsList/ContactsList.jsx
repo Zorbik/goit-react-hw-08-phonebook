@@ -7,7 +7,7 @@ export function ContactsList() {
   const visibleContacts = useSelector(getVisibleContacts);
 
   return (
-    <Box as="ul" display="flex" flexDirection="column" px={3} width="320px">
+    <Box as="ul" display="flex" flexDirection="column" px={3}>
       {stateContacts &&
         visibleContacts.map(item => <Contact key={item.id} item={item} />)}
     </Box>

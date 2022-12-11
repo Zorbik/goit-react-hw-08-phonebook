@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-hot-toast';
 import {
   createNewUser,
   getCurrentUser,
@@ -40,6 +41,22 @@ export const userAuthSlice = createSlice({
       .addCase(getCurrentUser.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isLoggedIn = true;
+      })
+      .addCase(createNewUser.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.isLoggedIn = false;
+      })
+      .addCase(logInUser.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.isLoggedIn = false;
+      })
+      .addCase(logOut.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.isLoggedIn = false;
+      })
+      .addCase(getCurrentUser.rejected, (state, { payload }) => {
+        toast.error(`Операція завершилась помилкою ${payload}!`);
+        state.isLoggedIn = false;
       });
   },
 });

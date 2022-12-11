@@ -62,7 +62,6 @@ export const getCurrentUser = createAsyncThunk(
   'userAuth/refresh',
   async (_, { getState, rejectWithValue }) => {
     const persistedToken = getState().user.token;
-    console.log('persistedToken', persistedToken);
     if (!persistedToken) return rejectWithValue('Треба авторизуватись!');
     token.set(persistedToken);
     try {

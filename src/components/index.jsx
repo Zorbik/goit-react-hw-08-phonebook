@@ -10,6 +10,8 @@ export { Contact } from './ContactsList/Contact';
 export { ContactsList } from './ContactsList/ContactsList';
 export { LoginForm } from './Form/LoginForm';
 export { RegistrationForm } from './Form/RegistrationForm';
+export { PrivateRoute } from './commons/PrivateRoute';
+export { PublicRoute } from './commons/PublicRoute';
 // loader
 export { Loader, Spiner } from './Loaders/Loader';
 
