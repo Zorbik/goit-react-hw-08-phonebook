@@ -48,6 +48,8 @@ export const Button = styled.button`
   background-color: ${p => p.theme.colors.blue};
   color: ${p => p.theme.colors.white};
   padding: ${p => p.theme.space[3]}px;
+  margin: ${p => p.theme.space[1]}px;
+
   cursor: pointer;
   :hover {
     background-color: ${p => p.theme.colors.white};
@@ -63,5 +65,43 @@ export const Button = styled.button`
       background-color: ${p => p.theme.colors.white};
       color: ${p => p.theme.colors.black};
     }
+  }
+`;
+
+export const StyledButton = styled.button`
+  /* display: flex;
+  justify-content: center; */
+  border: none;
+  background-color: transparent;
+  font-size: ${p => p.theme.fontSizes[2]}px;
+  font-family: 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  padding-left: ${p => p.theme.space[3]}px;
+  padding-right: ${p => p.theme.space[3]}px;
+
+  border-radius: 10px;
+  @media screen and (min-width: ${p => p.theme.sizes.tablet}) {
+    font-size: ${p => p.theme.fontSizes[3]}px;
+    height: 50px;
+  }
+  @media screen and (min-width: ${p => p.theme.sizes.desktop}) {
+    font-size: ${p => p.theme.fontSizes[4]}px;
+  }
+  :hover {
+    color: ${p => p.theme.colors.white};
+    background-image: linear-gradient(
+      to right top,
+      #c777b9,
+      #ba83ca,
+      #aa8fd8,
+      #9a9ae1,
+      #8aa7ec,
+      #79b3f4,
+      #69bff8,
+      #52cffe,
+      #41dfff,
+      #46eefa,
+      #5ffbf1
+    );
   }
 `;

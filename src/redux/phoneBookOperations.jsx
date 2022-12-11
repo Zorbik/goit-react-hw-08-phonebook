@@ -44,3 +44,21 @@ export const addContact = createAsyncThunk(
     }
   }
 );
+
+export const editContact = createAsyncThunk(
+  'contacts/editContact',
+  async ({ id, name, number }, { rejectWithValue }) => {
+    try {
+      console.log('{ name, number }', { name, number });
+      console.log('item.id', id);
+
+      const { data } = await axios.patch(`/contacts/${id}`, { name, number });
+
+      toast.success(`Контакт ${data.name} успішно оновлен!`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

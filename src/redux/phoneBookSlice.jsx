@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import {
   addContact,
   deleteContact,
+  editContact,
   fetchContacts,
 } from './phoneBookOperations';
 
@@ -32,6 +33,13 @@ export const phoneBookSlice = createSlice({
       })
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.contacts.items = [payload, ...state.contacts.items];
+        state.contacts.isLoading = false;
+      })
+      .addCase(editContact.fulfilled, (state, { payload }) => {
+        state.contacts.items = [
+          payload,
+          ...state.contacts.items.filter(({ id }) => payload.id !== id),
+        ];
         state.contacts.isLoading = false;
       })
       .addCase(deleteContact.fulfilled, (state, { payload }) => {

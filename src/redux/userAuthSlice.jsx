@@ -14,6 +14,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
+  isPending: false,
 };
 
 export const userAuthSlice = createSlice({
@@ -42,6 +43,7 @@ export const userAuthSlice = createSlice({
         state.user = payload;
         state.isLoggedIn = true;
       })
+
       .addCase(createNewUser.rejected, (state, { payload }) => {
         toast.error(`Операція завершилась помилкою ${payload}!`);
         state.isLoggedIn = false;

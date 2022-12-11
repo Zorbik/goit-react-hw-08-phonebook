@@ -1,29 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Label, Button, Box } from '../../components';
 import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/phoneBookOperations';
-import { StyledButton } from './FormInputContact.styled';
+import { ModalWindow, Overlay } from './Modal.styled';
+import { Button, Form, Input, Label } from '../../components';
+import { editContact } from '../../redux/phoneBookOperations';
 
-export const FormInputContact = () => {
+export const Modal = ({ item, onClose }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [showForm, setShowForm] = useState(false);
-
   const dispatch = useDispatch();
   const stateContacts = useSelector(getContacts);
+
+  const onOverlayClick = e => {
+    if (e.target.nodeName !== 'DIV') return;
+    onClose();
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', onEscapeDown);
+    return () => {
+      window.removeEventListener('keydown', onEscapeDown);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setName(item.name);
+    setNumber(item.number);
+  }, [item]);
+
+  const onEscapeDown = e => {
+    if (e.code !== 'Escape') return;
+    onClose();
+  };
 
   const handleInputChange = e => {
     const { name, value } = e.target;
     name === 'name' ? setName(value) : setNumber(value);
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
-
   const onFormSubmit = e => {
+    const { id } = item;
     e.preventDefault();
     if (
       stateContacts?.find(
@@ -32,22 +49,13 @@ export const FormInputContact = () => {
     ) {
       alert(`${name} is alredy in contacts!`);
     } else {
-      dispatch(addContact({ name, number }));
-      setShowForm(!showForm);
-
-      reset();
+      dispatch(editContact({ id, name, number }));
+      onClose();
     }
   };
-  const onClick = () => {
-    setShowForm(!showForm);
-  };
-
   return (
-    <Box px={3} mx="auto" width="px">
-      <StyledButton type="button" onClick={onClick}>
-        {showForm ? 'Приховати вікно' : 'Додати контакт'}
-      </StyledButton>
-      {showForm && (
+    <Overlay onClick={onOverlayClick}>
+      <ModalWindow>
         <Form onSubmit={onFormSubmit}>
           <Label>
             <Input
@@ -73,9 +81,9 @@ export const FormInputContact = () => {
               required
             />
           </Label>
-          <Button type="submit">Add contact</Button>
+          <Button type="submit">Save contact</Button>
         </Form>
-      )}
-    </Box>
+      </ModalWindow>
+    </Overlay>
   );
 };

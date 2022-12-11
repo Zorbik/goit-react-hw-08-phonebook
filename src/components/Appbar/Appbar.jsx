@@ -22,7 +22,7 @@ export const Appbar = () => {
       <Box as="nav" display="flex" justifyContent="space-between" p={2}>
         <Box display="flex" flexWrap="wrap" width="half">
           <StyledLink to="/">Hello-page</StyledLink>
-          <StyledLink to="contacts">Contacts</StyledLink>
+          {isRedirect && <StyledLink to="contacts">Contacts</StyledLink>}
         </Box>
         <StyledBox
           display="flex"
@@ -30,13 +30,12 @@ export const Appbar = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {isRedirect ? (
+          {isLoggedIn && user && (
             <StyledButton type="button" onClick={onClick}>
               Вітаю, {user.name}
             </StyledButton>
-          ) : (
-            <StyledLink to="login">Login</StyledLink>
           )}
+          {!isRedirect && <StyledLink to="login">Login</StyledLink>}
           {showMenu ? <UserMenu onClick={onClick} /> : ''}
         </StyledBox>
       </Box>

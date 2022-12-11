@@ -55,6 +55,9 @@ export const StyledButton = styled.button`
   font-size: ${p => p.theme.fontSizes[2]}px;
   font-family: 'Helvetica Neue', sans-serif;
   cursor: pointer;
+  padding-left: ${p => p.theme.space[4]}px;
+  padding-right: ${p => p.theme.space[4]}px;
+
   border-radius: 10px;
   @media screen and (min-width: ${p => p.theme.sizes.tablet}) {
     font-size: ${p => p.theme.fontSizes[3]}px;
