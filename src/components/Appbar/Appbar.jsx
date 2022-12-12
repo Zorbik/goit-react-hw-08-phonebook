@@ -46,7 +46,7 @@ export const Appbar = () => {
           {showMenu ? <UserMenu onClick={onClick} /> : ''}
         </StyledBox>
       </Box>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
     </Box>
   );
 };
