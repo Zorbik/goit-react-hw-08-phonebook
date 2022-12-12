@@ -1,6 +1,6 @@
 import { Box } from '../../components';
 
-const Page404 = () => {
+const NotFoundPage = () => {
   return (
     <Box>
       <h1>Такої сторінки, нажаль, немає</h1>
@@ -8,4 +8,4 @@ const Page404 = () => {
   );
 };
 
-export default Page404;
+export default NotFoundPage;

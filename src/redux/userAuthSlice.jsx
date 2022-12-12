@@ -42,23 +42,27 @@ export const userAuthSlice = createSlice({
       .addCase(getCurrentUser.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isLoggedIn = true;
+        state.isPending = false;
       })
-
+      .addCase(getCurrentUser.pending, (state, { payload }) => {
+        state.isPending = true;
+      })
       .addCase(createNewUser.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(`Операція завершилась помилкою: ${payload}!`);
         state.isLoggedIn = false;
       })
       .addCase(logInUser.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(payload);
         state.isLoggedIn = false;
       })
       .addCase(logOut.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(payload);
         state.isLoggedIn = false;
       })
       .addCase(getCurrentUser.rejected, (state, { payload }) => {
-        toast.error(`Щоб далі користуватися додатком, ${payload}!`);
+        toast.error(payload);
         state.isLoggedIn = false;
+        state.isPending = false;
       });
   },
 });

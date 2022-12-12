@@ -9,10 +9,7 @@ export const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  //   const [showForm, setShowForm] = useState(false);
-
   const dispatch = useDispatch();
-  //   const stateContacts = useSelector(getContacts);
 
   const reset = () => {
     setName('');

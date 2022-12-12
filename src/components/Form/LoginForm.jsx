@@ -7,22 +7,13 @@ import { Button, Form, Input, Label } from './FormInputContact.styled';
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //   const [showForm, setShowForm] = useState(false);
 
   const dispatch = useDispatch();
-  //   const stateContacts = useSelector(getContacts);
-
-  const reset = () => {
-    setEmail('');
-    setPassword('');
-  };
 
   const onFormSubmit = e => {
     e.preventDefault();
 
     dispatch(logInUser({ email, password }));
-
-    reset();
   };
 
   const onInputChange = e => {

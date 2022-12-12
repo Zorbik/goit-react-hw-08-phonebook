@@ -22,8 +22,13 @@ export const createNewUser = createAsyncThunk(
       toast.success(`Реєстрація пройшла успішно!`);
 
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 400:
+          return rejectWithValue('Помилка створення користувача');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -38,8 +43,13 @@ export const logInUser = createAsyncThunk(
       toast.success(`Вхід виконан успішно!`);
 
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 400:
+          return rejectWithValue('Не вірно вказан логін чи пароль');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -52,8 +62,13 @@ export const logOut = createAsyncThunk(
       token.unset();
 
       toast.success(`До скорої зустрічі!`);
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue('Необхідно авторизуватися');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -62,13 +77,18 @@ export const getCurrentUser = createAsyncThunk(
   'userAuth/refresh',
   async (_, { getState, rejectWithValue }) => {
     const persistedToken = getState().user.token;
-    if (!persistedToken) return rejectWithValue('треба авторизуватись!');
+    if (!persistedToken) return rejectWithValue('Треба авторизуватись!');
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue('Необхідно авторизуватися');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );

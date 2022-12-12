@@ -1,17 +1,22 @@
 import { Box } from '../../components';
 import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import { getLoggedIn, getToken, getUser } from '../../redux/selectors';
+import {
+  getLoggedIn,
+  getPending,
+  getToken,
+  getUser,
+} from '../../redux/selectors';
 import { StyledBox, StyledButton, StyledLink } from './Appbar.styled';
 import { useState } from 'react';
 import { UserMenu } from '../UserMenu/UserMenu';
 
 export const Appbar = () => {
   const [showMenu, setShowmenu] = useState(false);
+  const isPending = useSelector(getPending);
+  const token = useSelector(getToken);
 
   const isLoggedIn = useSelector(getLoggedIn);
-  const token = useSelector(getToken);
-  const isRedirect = isLoggedIn || token;
   const user = useSelector(getUser);
 
   const onClick = () => {
@@ -22,7 +27,7 @@ export const Appbar = () => {
       <Box as="nav" display="flex" justifyContent="space-between" p={2}>
         <Box display="flex" flexWrap="wrap" width="half">
           <StyledLink to="/">Hello-page</StyledLink>
-          {isRedirect && <StyledLink to="contacts">Contacts</StyledLink>}
+          {token && <StyledLink to="contacts">Contacts</StyledLink>}
         </Box>
         <StyledBox
           display="flex"
@@ -30,12 +35,14 @@ export const Appbar = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {isLoggedIn && user && (
+          {isLoggedIn && !isPending && (
             <StyledButton type="button" onClick={onClick}>
               Вітаю, {user.name}
             </StyledButton>
           )}
-          {!isRedirect && <StyledLink to="login">Login</StyledLink>}
+          {!isLoggedIn && !isPending && (
+            <StyledLink to="login">Login</StyledLink>
+          )}
           {showMenu ? <UserMenu onClick={onClick} /> : ''}
         </StyledBox>
       </Box>

@@ -61,17 +61,17 @@ export const phoneBookSlice = createSlice({
         state.contacts.error = null;
       })
       .addCase(deleteContact.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(payload);
         state.contacts.isLoading = false;
         state.contacts.error = payload;
       })
       .addCase(addContact.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(payload);
         state.contacts.isLoading = false;
         state.contacts.error = payload;
       })
       .addCase(fetchContacts.rejected, (state, { payload }) => {
-        toast.error(`Операція завершилась помилкою ${payload}!`);
+        toast.error(payload);
         state.contacts.isLoading = false;
         state.contacts.error = payload;
       });

@@ -2,7 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { Layout, PrivateRoute, PublicRoute } from './components';
-import { Contacts, Home, Login, Page404, Registration } from './pages';
+import { Contacts, Home, Login, NotFoundPage, Registration } from './pages';
 import { getCurrentUser } from './redux/userAuthOperations';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
+
   return (
     <>
       <Suspense fallback={false}>
@@ -28,7 +29,7 @@ function App() {
             <Route
               path="login"
               element={
-                <PublicRoute>
+                <PublicRoute restricted>
                   <Login />
                 </PublicRoute>
               }
@@ -36,12 +37,12 @@ function App() {
             <Route
               path="registration"
               element={
-                <PublicRoute>
+                <PublicRoute restricted>
                   <Registration />
                 </PublicRoute>
               }
             />
-            <Route path="*" element={<Page404 />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>

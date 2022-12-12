@@ -7,6 +7,7 @@ export const getState = ({ contacts }) => contacts.contacts;
 export const getLoggedIn = ({ user }) => user.isLoggedIn;
 export const getUser = ({ user }) => user.user;
 export const getToken = ({ user }) => user.token;
+export const getPending = ({ user }) => user.isPending;
 
 export const getVisibleContacts = state => {
   const stateContacts = getContacts(state);

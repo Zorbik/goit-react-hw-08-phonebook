@@ -9,8 +9,17 @@ export const fetchContacts = createAsyncThunk(
       const response = await axios.get('/contacts');
 
       return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue(
+            'Для подальшого використання необхідно авторизуватися!'
+          );
+        case 404:
+          return rejectWithValue('Такого контакта у користувача немає');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -24,8 +33,17 @@ export const deleteContact = createAsyncThunk(
       toast.success(`Контакт ${data.name} успішно видален!`);
 
       return data.id;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue(
+            'Для подальшого використання необхідно авторизуватися!'
+          );
+        case 404:
+          return rejectWithValue('Такого контакта у користувача немає');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -39,8 +57,17 @@ export const addContact = createAsyncThunk(
       toast.success(`Контакт ${data.name} успішно додан!`);
 
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue(
+            'Для подальшого використання необхідно авторизуватися!'
+          );
+        case 400:
+          return rejectWithValue('Контакт не створено');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );
@@ -49,16 +76,21 @@ export const editContact = createAsyncThunk(
   'contacts/editContact',
   async ({ id, name, number }, { rejectWithValue }) => {
     try {
-      console.log('{ name, number }', { name, number });
-      console.log('item.id', id);
-
       const { data } = await axios.patch(`/contacts/${id}`, { name, number });
 
       toast.success(`Контакт ${data.name} успішно оновлен!`);
-
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ({ response, message }) {
+      switch (response.status) {
+        case 401:
+          return rejectWithValue(
+            'Для подальшого використання необхідно авторизуватися!'
+          );
+        case 400:
+          return rejectWithValue('Контакт не оновлено');
+        default:
+          return rejectWithValue(message);
+      }
     }
   }
 );

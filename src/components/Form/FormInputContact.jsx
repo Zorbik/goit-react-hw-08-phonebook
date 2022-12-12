@@ -43,7 +43,14 @@ export const FormInputContact = () => {
   };
 
   return (
-    <Box px={3} mx="auto" width="px">
+    <Box
+      px={3}
+      mx="auto"
+      width="px"
+      display="flex"
+      flexDirection="column"
+      alignContent="stretch"
+    >
       <StyledButton type="button" onClick={onClick}>
         {showForm ? 'Приховати вікно' : 'Додати контакт'}
       </StyledButton>
