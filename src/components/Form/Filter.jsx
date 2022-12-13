@@ -10,7 +10,7 @@ export const Filter = () => {
   };
 
   return (
-    <Box p={3}>
+    <Box>
       <Label>
         <Input
           type="text"

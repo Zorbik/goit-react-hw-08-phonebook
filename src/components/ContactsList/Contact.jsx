@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { BsPencilFill, BsTrashFill } from 'react-icons/bs';
-import { deleteContact } from '../../redux/phoneBookOperations';
-import { Box, ContactItem } from '../../components';
 import { useState } from 'react';
-import { Spiner } from '../../components';
+
+import { deleteContact } from '../../redux/phoneBookOperations';
+import { Box, ContactItem, EditContactForm, Spiner } from '../../components';
 import { StyledButton } from './Contact.styled';
-import { Modal } from '../Modal/Modal';
 
 export const Contact = ({ item }) => {
   const { id, name, number } = item;
@@ -36,15 +35,19 @@ export const Contact = ({ item }) => {
         <Spiner />
       ) : (
         <Box display="flex">
-          <StyledButton type="button" onClick={onClick} disabled={isDeleting}>
+          <StyledButton type="button" onClick={onClick} title="Видаити контакт">
             <BsTrashFill size="20px" />
           </StyledButton>
-          <StyledButton type="button" onClick={onBtnEditClick}>
+          <StyledButton
+            type="button"
+            onClick={onBtnEditClick}
+            title="Редагувати контакт"
+          >
             <BsPencilFill size="20px" />
           </StyledButton>
         </Box>
       )}
-      {modal && <Modal item={item} onClose={onCloseModal} />}
+      {modal && <EditContactForm item={item} onClose={onCloseModal} />}
     </ContactItem>
   );
 };

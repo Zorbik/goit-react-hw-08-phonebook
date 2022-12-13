@@ -10,6 +10,8 @@ export { Contact } from './ContactsList/Contact';
 export { ContactsList } from './ContactsList/ContactsList';
 export { LoginForm } from './Form/LoginForm';
 export { RegistrationForm } from './Form/RegistrationForm';
+export { Modal } from './Modal/Modal';
+export { EditContactForm } from './Form/EditContactForm';
 export { PrivateRoute } from './commons/PrivateRoute';
 export { PublicRoute } from './commons/PublicRoute';
 // loader

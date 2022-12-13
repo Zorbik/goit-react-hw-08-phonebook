@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Label, Button, Box } from '../../components';
+import { Form, Input, Label, Button, Box, Modal } from '../../components';
 import { getContacts } from '../../redux/selectors';
 import { addContact } from '../../redux/phoneBookOperations';
-import { StyledButton } from './FormInputContact.styled';
 
-export const FormInputContact = () => {
+export const FormInputContact = ({ onClose }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [showForm, setShowForm] = useState(false);
 
   const dispatch = useDispatch();
   const stateContacts = useSelector(getContacts);
@@ -33,28 +31,22 @@ export const FormInputContact = () => {
       alert(`${name} is alredy in contacts!`);
     } else {
       dispatch(addContact({ name, number }));
-      setShowForm(!showForm);
 
       reset();
+      onClose();
     }
-  };
-  const onClick = () => {
-    setShowForm(!showForm);
   };
 
   return (
-    <Box
-      px={3}
-      mx="auto"
-      width="px"
-      display="flex"
-      flexDirection="column"
-      alignContent="stretch"
-    >
-      <StyledButton type="button" onClick={onClick}>
-        {showForm ? 'Приховати вікно' : 'Додати контакт'}
-      </StyledButton>
-      {showForm && (
+    <Modal onClose={onClose}>
+      <Box
+        px={3}
+        mx="auto"
+        width="px"
+        display="flex"
+        flexDirection="column"
+        alignContent="stretch"
+      >
         <Form onSubmit={onFormSubmit}>
           <Label>
             <Input
@@ -82,7 +74,7 @@ export const FormInputContact = () => {
           </Label>
           <Button type="submit">Add contact</Button>
         </Form>
-      )}
-    </Box>
+      </Box>
+    </Modal>
   );
 };
